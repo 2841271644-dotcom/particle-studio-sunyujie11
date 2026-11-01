@@ -2,83 +2,81 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="粒子工坊 Particle Studio：在线粒子动画编辑器，支持自定义贴图、2D/2.5D粒子效果和动画导出。">
-<title>粒子工坊 Particle Studio</title>
-<link rel="stylesheet" href="style.css">
+<meta name="description" content="粒子工坊：无需 Spine，直接在浏览器制作并导出粒子动画。">
+<title>粒子工坊 Particle Studio</title><link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="topbar">
- <div class="brand"><div class="brandmark">✦</div><div><strong>粒子工坊</strong><small>PARTICLE STUDIO · V1.2</small></div></div>
- <div class="top-actions"><span class="local-tag"><i></i> 本地实时渲染</span><button id="resetBtn" class="btn ghost">重置</button><button id="saveBtn" class="btn ghost">保存项目</button><label class="btn ghost file-btn">导入项目<input id="loadInput" type="file" accept=".json,application/json"></label></div>
+  <div class="brand"><div class="brandmark">✦</div><div><strong>粒子工坊</strong><small>PARTICLE STUDIO · V2.0</small></div></div>
+  <div class="top-actions"><span class="local-tag"><i></i> 本地实时制作</span><button id="newBtn" class="btn ghost">新建</button><button id="saveBtn" class="btn ghost">保存项目</button><label class="btn ghost file-btn">打开项目<input id="loadInput" type="file" accept=".json,application/json"></label></div>
 </header>
-<main class="layout">
- <aside class="sidebar">
-  <div class="side-head"><div><h1>效果编辑器</h1><p>调整参数，实时预览粒子动画</p></div><span class="version">V1</span></div>
-  <section class="group"><div class="group-title"><b>01</b> 粒子系统</div>
-   <div class="field"><label>渲染模式</label><div class="segmented"><button data-mode="2.5d" class="selected">2.5D 空间</button><button data-mode="2d">2D 平面</button></div></div>
-   <div class="field"><label>发射形状</label><select id="emitter"><option value="point">点发射</option><option value="circle">圆形发射</option><option value="line">线性发射</option><option value="cone">锥形发射</option><option value="sphere">球体发射</option></select></div>
-   <div class="field range"><label>发射区域 <output id="areaOut">120</output></label><input id="area" type="range" min="0" max="1000" value="120"></div>
-   <div class="field range"><label>发射方向 <output id="directionOut">0°</output></label><input id="direction" type="range" min="0" max="360" value="0"></div>
-   <div class="field range"><label>扩散角度 <output id="spreadOut">70°</output></label><input id="spread" type="range" min="0" max="360" value="70"></div>
+<main class="app-shell">
+  <aside class="left-panel">
+    <div class="panel-heading"><div><h1>快速开始</h1><p>先选一个效果，再调整参数</p></div><span class="pill">新手模式</span></div>
+    <div class="tabbar"><button class="tab active" data-tab="presets">效果预设</button><button class="tab" data-tab="settings">参数调整</button><button class="tab" data-tab="assets">素材贴图</button></div>
+    <section class="tab-page active" id="tab-presets">
+      <div class="category-row"><span>常用效果</span><span class="muted">点击即可应用</span></div>
+      <div class="preset-grid" id="presetGrid">
+       <button class="preset" data-preset="gold"><i>✦</i><b>金币爆发</b><small>爆发后下落</small></button>
+       <button class="preset" data-preset="stars"><i>✧</i><b>星光漂浮</b><small>缓慢漂移</small></button>
+       <button class="preset" data-preset="vortex"><i>◉</i><b>能量漩涡</b><small>环绕旋转</small></button>
+       <button class="preset" data-preset="rain"><i>⋮</i><b>粒子雨</b><small>持续飘落</small></button>
+       <button class="preset" data-preset="hearts"><i>♥</i><b>爱心漂浮</b><small>聚集缓升</small></button>
+       <button class="preset" data-preset="energy"><i>✳</i><b>能量光点</b><small>随机扩散</small></button>
+       <button class="preset" data-preset="explosion"><i>✹</i><b>粒子炸开</b><small>中心向外爆发</small></button>
+       <button class="preset" data-preset="rise"><i>↑</i><b>粒子上升</b><small>从底部升起</small></button>
+       <button class="preset" data-preset="fall"><i>↓</i><b>粒子飘落</b><small>自然向下落</small></button>
+       <button class="preset" data-preset="fountain"><i>♨</i><b>粒子喷射</b><small>喷出后回落</small></button>
+       <button class="preset" data-preset="orbit"><i>◎</i><b>粒子环绕</b><small>围绕中心旋转</small></button>
+       <button class="preset" data-preset="disperse"><i>✺</i><b>粒子扩散</b><small>向四周散开</small></button>
+       <button class="preset" data-preset="spatialDrift"><i>·</i><b>空间漂浮</b><small>全画面随机游动</small></button>
+       <button class="preset" data-preset="centerBurst"><i>✹</i><b>中心爆散</b><small>短促集中爆发</small></button>
+       <button class="preset" data-preset="slowRise"><i>↟</i><b>缓慢上浮</b><small>稀疏持续上升</small></button>
+       <button class="preset" data-preset="petalFall"><i>❋</i><b>自由飘落</b><small>下落并左右摇摆</small></button>
+       <button class="preset" data-preset="starCluster"><i>✧</i><b>星点聚集</b><small>中心小范围游动</small></button>
+       <button class="preset" data-preset="heartFloat"><i>♡</i><b>集中缓升</b><small>聚集后缓慢上升</small></button>
+      </div>
+      <div class="tip-card"><b>小提示</b><p>先选择最接近的预设，再到「参数调整」里改变数量、速度和运动范围。外观可以单独修改，不会被预设覆盖。</p></div>
+    </section>
+    <section class="tab-page" id="tab-settings">
+      <div class="category-row"><span>发射与数量</span><span class="muted">影响粒子怎么出现</span></div>
+      <div class="field"><label>发射方式</label><select id="emitMode"><option value="continuous">持续发射</option><option value="burst">瞬时爆发</option><option value="fixed">常驻填充</option></select></div>
+      <div class="field"><label>发射形状</label><select id="emitter"><option value="point">点发射</option><option value="line">线性发射</option><option value="circle">圆形发射</option><option value="sphere">球体发射</option><option value="cone">锥形发射</option></select></div>
+      <div class="range-field"><label>发射区域 <output id="areaOut">120</output></label><input id="area" type="range" min="0" max="1000" value="120"></div>
+      <div class="range-field"><label>扩散角度 <output id="spreadOut">70°</output></label><input id="spread" type="range" min="0" max="360" value="70"></div>
+      <div class="range-field"><label>粒子数量 <output id="countOut">400</output></label><input id="count" type="range" min="10" max="1800" step="10" value="400"></div>
+      <div class="range-field"><label>发射速率 <output id="rateOut">100 / 秒</output></label><input id="rate" type="range" min="1" max="300" value="100"></div>
+      <div class="range-field"><label>生命周期 <output id="lifeOut">3.0 秒</output></label><input id="life" type="range" min="0.5" max="12" step="0.1" value="3"></div>
+      <div class="divider"></div><div class="category-row"><span>运动控制</span><span class="muted">影响粒子怎么移动</span></div>
+      <div class="field"><label>运动方向</label><select id="motion"><option value="free">自由运动</option><option value="rise">向上运动</option><option value="fall">向下运动</option><option value="explosion">中心爆发</option><option value="orbit">环绕运动</option><option value="drift">空间漂移</option><option value="cluster">中心聚集</option><option value="clusterRise">聚集上升</option><option value="fountain">喷射回落</option><option value="disperse">缓慢扩散</option></select></div>
+      <div class="range-field"><label>初始速度 <output id="speedOut">100</output></label><input id="speed" type="range" min="0" max="400" value="100"></div>
+      <div class="range-field"><label>重力 <output id="gravityOut">30</output></label><input id="gravity" type="range" min="-200" max="200" value="30"></div>
+      <div class="range-field"><label>风力 <output id="windOut">0</output></label><input id="wind" type="range" min="-150" max="150" value="0"></div>
+      <div class="range-field"><label>旋转速度 <output id="spinOut">0</output></label><input id="spin" type="range" min="-5" max="5" step="0.1" value="0"></div>
+      <div class="range-field"><label>随机扰动 <output id="turbulenceOut">20</output></label><input id="turbulence" type="range" min="0" max="150" value="20"></div>
+      <div class="range-field"><label>随机程度 <output id="randomOut">50%</output></label><input id="random" type="range" min="0" max="100" value="50"></div>
+      <div class="divider"></div><div class="category-row"><span>外观与生命周期</span><span class="muted">不影响运动预设</span></div>
+      <div class="field"><label>粒子颜色</label><div class="color-row"><input id="color" type="color" value="#ffc85a"><span id="colorText">#FFC85A</span></div></div>
+      <div class="range-field"><label>粒子大小 <output id="sizeOut">8</output></label><input id="size" type="range" min="1" max="30" value="8"></div>
+      <div class="range-field"><label>透明度 <output id="opacityOut">100%</output></label><input id="opacity" type="range" min="0" max="100" value="100"></div>
+      <div class="field"><label>粒子造型</label><select id="shape"><option value="circle">圆形</option><option value="star">五角星</option><option value="diamond">菱形</option><option value="square">方块</option><option value="spark">四角星芒</option><option value="image">自定义贴图</option></select></div>
+      <div class="field"><label>大小变化</label><select id="sizeCurve"><option value="constant">恒定</option><option value="grow">逐渐增大</option><option value="shrink">逐渐缩小</option><option value="peak">先大后小</option></select></div>
+      <div class="field"><label>透明度变化</label><select id="fadeCurve"><option value="fade">淡入淡出</option><option value="constant">恒定</option><option value="out">逐渐消失</option><option value="in">逐渐显现</option></select></div>
+    </section>
+    <section class="tab-page" id="tab-assets">
+      <div class="category-row"><span>自定义粒子贴图</span><span class="muted">本地读取</span></div>
+      <label class="dropzone" id="dropzone"><span class="upload-symbol">＋</span><b>点击上传或拖入图片</b><small>PNG / WebP / JPG，建议使用透明背景，最大 10MB</small><input id="textureInput" type="file" accept="image/png,image/webp,image/jpeg"></label>
+      <div class="asset-preview"><img id="texturePreview" alt="贴图预览"><div><b id="textureName">尚未上传贴图</b><small>上传后可在参数调整中选择「自定义贴图」</small></div><button id="removeTexture" class="btn tiny">移除</button></div>
+      <div class="tip-card"><b>贴图小建议</b><p>尽量使用主体居中、四周留透明边的 PNG。贴图会作为每个粒子的外观，不会改变粒子运动轨迹。</p></div>
+    </section>
+  </aside>
+  <section class="main-panel">
+    <div class="canvas-head"><div><h2>动画预览</h2><p>实时查看效果 · 透明背景可在导出时保留</p></div><div class="canvas-actions"><button id="playBtn" class="btn dark">Ⅱ 暂停</button><button id="restartBtn" class="btn dark">↻ 重播</button><button id="loopBtn" class="btn dark">↻ 循环关闭</button></div></div>
+    <div class="canvas-frame"><canvas id="preview" width="960" height="600"></canvas><span class="canvas-tag">实时预览</span><span class="canvas-size" id="canvasSize">960 × 600</span></div>
+    <div class="timeline-panel"><div class="timeline-top"><div><b>播放控制</b><small id="timeReadout">00:00.0 / 00:05.0</small></div><div class="timeline-buttons"><button id="clearBtn" class="btn tiny">清空</button><button id="burstBtn" class="btn tiny gold">触发一次爆发</button></div></div><input id="scrub" class="scrub" type="range" min="0" max="5" step="0.01" value="0"><div class="timeline-bottom"><label>时长 <select id="duration"><option value="3">3 秒</option><option value="5" selected>5 秒</option><option value="8">8 秒</option><option value="10">10 秒</option></select></label><label>帧率 <select id="fps"><option>24</option><option selected>30</option><option>60</option></select></label><label>循环 <input id="loopCheck" type="checkbox"></label><span class="muted">循环播放可用于预览；导出时按设置时长输出</span></div></div>
+    <section class="export-panel"><div class="export-heading"><div><h2>导出动画</h2><p>不需要 Spine，直接生成可用文件</p></div><span class="pill">浏览器本地导出</span></div><div class="export-options"><label>画布宽度<input id="exportW" type="number" min="64" max="3840" value="960"></label><label>画布高度<input id="exportH" type="number" min="64" max="3840" value="600"></label><label>背景<select id="exportBg"><option value="transparent">透明背景</option><option value="#000000">黑色</option><option value="#ffffff">白色</option></select></label></div><div class="export-buttons"><button id="webmBtn" class="btn primary">导出 WebM 动画</button><button id="sequenceBtn" class="btn secondary">导出 PNG 序列 ZIP</button><button id="pngBtn" class="btn secondary">导出当前 PNG</button></div><div id="exportStatus" class="status-line">支持 WebM 动画、PNG 序列帧 ZIP 和 PNG 静帧。所有处理均在本地浏览器完成。</div></section>
+    <div class="footer-note">PARTICLE STUDIO V2.0 · 无需 Spine · 无需安装软件</div>
   </section>
-  <section class="group"><div class="group-title"><b>02</b> 粒子生成</div>
-   <div class="field range"><label>最大粒子数量 <output id="countOut">400</output></label><input id="count" type="range" min="20" max="1800" step="10" value="400"></div>
-   <div class="field range"><label>发射速率 <output id="rateOut">100 / 秒</output></label><input id="rate" type="range" min="1" max="300" value="100"></div>
-   <div class="field range"><label>生命周期 <output id="lifeOut">3.0 秒</output></label><input id="life" type="range" min="0.5" max="8" step="0.1" value="3"></div>
-   <div class="field range"><label>随机程度 <output id="randomOut">50%</output></label><input id="random" type="range" min="0" max="100" value="50"></div>
-  </section>
-  <section class="group"><div class="group-title"><b>03</b> 运动控制</div>
-   <div class="field range"><label>初始速度 <output id="speedOut">100</output></label><input id="speed" type="range" min="0" max="400" value="100"></div>
-   <div class="field range"><label>重力 <output id="gravityOut">30</output></label><input id="gravity" type="range" min="-200" max="200" value="30"></div>
-   <div class="field range"><label>风力 <output id="windOut">0</output></label><input id="wind" type="range" min="-150" max="150" value="0"></div>
-   <div class="field range"><label>旋转速度 <output id="spinOut">0</output></label><input id="spin" type="range" min="-5" max="5" step="0.1" value="0"></div>
-   <div class="field range"><label>湍流强度 <output id="turbulenceOut">20</output></label><input id="turbulence" type="range" min="0" max="150" value="20"></div>
-  </section>
-  <section class="group"><div class="group-title"><b>04</b> 粒子外观</div>
-   <div class="field"><label>主颜色</label><div class="color-line"><input id="color" type="color" value="#ffc85a"><span id="colorText">#FFC85A</span><button id="randomColor" class="mini-btn">随机颜色</button></div></div>
-   <div class="field range"><label>粒子大小 <output id="sizeOut">8</output></label><input id="size" type="range" min="1" max="30" value="8"></div>
-   <div class="field range"><label>大小随机 <output id="sizeRandomOut">40%</output></label><input id="sizeRandom" type="range" min="0" max="100" value="40"></div>
-   <div class="field range"><label>整体透明度 <output id="opacityOut">100%</output></label><input id="opacity" type="range" min="0" max="100" value="100"></div>
-   <div class="field"><label>粒子造型</label><select id="shape"><option value="circle">圆形光点</option><option value="star">五角星</option><option value="diamond">菱形</option><option value="square">方块</option><option value="spark">四角星芒</option><option value="image">自定义贴图</option></select></div>
-   <div class="field"><label>上传自定义贴图</label><label class="upload-box"><span class="upload-icon">＋</span><span><b>选择图片文件</b><small>PNG / WebP / JPG，最大 10MB</small></span><input id="textureInput" type="file" accept="image/png,image/webp,image/jpeg"></label><div id="textureName" class="hint">贴图仅在本地浏览器读取</div></div>
-  </section>
-  <section class="group"><div class="group-title"><b>05</b> 生命周期</div>
-   <div class="field"><label>大小变化</label><select id="sizeCurve"><option value="constant">恒定大小</option><option value="grow">逐渐增大</option><option value="shrink">逐渐缩小</option><option value="peak">先大后小</option></select></div>
-   <div class="field"><label>透明度变化</label><select id="fadeCurve"><option value="fade">淡入淡出</option><option value="constant">恒定</option><option value="out">逐渐消失</option><option value="in">逐渐显现</option></select></div>
-   <div class="field"><label>结束颜色</label><input id="endColor" type="color" value="#ff5b32"></div>
-  </section>
- </aside>
- <section class="workspace">
-  <div class="workspace-head"><div><h2>实时预览</h2><p>画布 960 × 600 · 透明网格背景</p></div><div class="play-actions"><button id="playBtn" class="btn dark">Ⅱ 暂停</button><button id="restartBtn" class="btn dark">↻ 重播</button><button id="loopBtn" class="btn dark" aria-pressed="false">↻ Loop 关闭</button></div></div>
-  <div class="preview-wrap"><canvas id="preview" width="960" height="600"></canvas><div class="preview-label">LIVE PREVIEW</div><div class="preview-corner">960 × 600</div></div>
-  <div class="preview-toolbar"><div class="stats"><div><small>当前粒子</small><b id="particleCount">0</b></div><div><small>渲染模式</small><b id="modeText">2.5D</b></div><div><small>帧率</small><b id="fpsText">—</b></div></div><div class="quick-actions"><button id="clearBtn" class="btn ghost">清空粒子</button><button id="burstBtn" class="btn accent">✦ 触发爆发</button></div></div>
-  <section class="preset-section"><div class="section-heading"><div><h2>特效预设</h2><p>选择一个效果作为创作起点</p></div><span>18 个预设</span></div><div class="presets">
-   <button class="preset" data-preset="gold"><span class="preset-art gold-art">✦</span><b>金币爆发</b><small>向外扩散 · 重力下落</small></button>
-   <button class="preset" data-preset="stars"><span class="preset-art star-art">✧</span><b>星光漂浮</b><small>缓慢上升 · 随机闪烁</small></button>
-   <button class="preset" data-preset="vortex"><span class="preset-art vortex-art">◉</span><b>能量漩涡</b><small>环绕旋转 · 空间运动</small></button>
-   <button class="preset" data-preset="rain"><span class="preset-art rain-art">⋮</span><b>粒子雨</b><small>持续生成 · 自然下落</small></button>
-   <button class="preset" data-preset="hearts"><span class="preset-art heart-art">♥</span><b>爱心漂浮</b><small>柔和上升 · 缓慢旋转</small></button>
-   <button class="preset" data-preset="energy"><span class="preset-art energy-art">✳</span><b>能量光点</b><small>随机扩散 · 明暗变化</small></button>
-   <button class="preset" data-preset="explosion"><span class="preset-art explosion-art">✹</span><b>粒子炸开</b><small>中心爆发 · 向外飞散</small></button>
-   <button class="preset" data-preset="rise"><span class="preset-art rise-art">↑</span><b>粒子上升</b><small>持续生成 · 缓慢升空</small></button>
-   <button class="preset" data-preset="fall"><span class="preset-art fall-art">✧</span><b>粒子飘落</b><small>自然下落 · 轻柔摇摆</small></button>
-   <button class="preset" data-preset="fountain"><span class="preset-art fountain-art">♨</span><b>粒子喷射</b><small>向上喷发 · 重力回落</small></button>
-   <button class="preset" data-preset="orbit"><span class="preset-art orbit-art">◎</span><b>粒子环绕</b><small>中心环绕 · 轨道运动</small></button>
-   <button class="preset" data-preset="disperse"><span class="preset-art disperse-art">✺</span><b>粒子扩散</b><small>缓慢扩张 · 均匀散开</small></button>
-   <button class="preset" data-preset="spatialDrift"><span class="preset-art energy-art">·</span><b>空间随机漂浮</b><small>全画面分布 · 无规则缓慢漂移</small></button>
-   <button class="preset" data-preset="centerBurst"><span class="preset-art explosion-art">✹</span><b>中心爆发扩散</b><small>中心聚集 · 径向瞬间扩散</small></button>
-   <button class="preset" data-preset="slowRise"><span class="preset-art rise-art">↑</span><b>缓慢向上漂浮</b><small>底部发射 · 缓慢上升</small></button>
-   <button class="preset" data-preset="petalFall"><span class="preset-art fall-art">↓</span><b>花瓣自由飘落</b><small>向下飘落 · 横向摇摆</small></button>
-   <button class="preset" data-preset="starCluster"><span class="preset-art star-art">✧</span><b>星点聚集游动</b><small>中心聚集 · 小范围游动</small></button>
-   <button class="preset" data-preset="heartFloat"><span class="preset-art heart-art">↑</span><b>爱心缓慢漂浮</b><small>集中缓升 · 轻微偏移</small></button>
-  </div></section>
-  <section class="export-section"><div class="section-heading"><div><h2>导出动画</h2><p>设置画布规格和动画参数</p></div><span>LOCAL EXPORT</span></div>
-   <div class="export-grid"><div class="field"><label>画布宽度</label><input id="exportW" type="number" min="64" max="3840" value="960"></div><div class="field"><label>画布高度</label><input id="exportH" type="number" min="64" max="3840" value="600"></div><div class="field"><label>帧率</label><select id="fps"><option>24</option><option selected>30</option><option>60</option></select></div><div class="field"><label>动画时长</label><select id="duration"><option value="3">3 秒</option><option value="5" selected>5 秒</option><option value="8">8 秒</option><option value="10">10 秒</option></select></div></div>
-   <label class="check-line"><input id="transparent" type="checkbox" checked> 导出透明背景（WebM / PNG）</label>
-   <div class="export-buttons"><button id="webmBtn" class="btn accent">导出 WebM 视频</button><button id="pngBtn" class="btn dark">导出当前 PNG</button><button id="sequenceBtn" class="btn dark">导出 PNG 序列帧</button></div><p id="exportStatus" class="export-status">所有渲染均在本地浏览器完成。WebM 透明通道是否保留取决于浏览器编码器。</p>
-  </section>
-  <footer>PARTICLE STUDIO · 在浏览器中创作你的粒子动画</footer>
- </section>
 </main>
 <script src="app.js"></script>
 </body></html>
