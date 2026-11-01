@@ -8,7 +8,7 @@
 </head>
 <body>
 <header class="topbar">
- <div class="brand"><div class="brandmark">✦</div><div><strong>粒子工坊</strong><small>PARTICLE STUDIO · V1.0</small></div></div>
+ <div class="brand"><div class="brandmark">✦</div><div><strong>粒子工坊</strong><small>PARTICLE STUDIO · V1.2</small></div></div>
  <div class="top-actions"><span class="local-tag"><i></i> 本地实时渲染</span><button id="resetBtn" class="btn ghost">重置</button><button id="saveBtn" class="btn ghost">保存项目</button><label class="btn ghost file-btn">导入项目<input id="loadInput" type="file" accept=".json,application/json"></label></div>
 </header>
 <main class="layout">
@@ -17,7 +17,7 @@
   <section class="group"><div class="group-title"><b>01</b> 粒子系统</div>
    <div class="field"><label>渲染模式</label><div class="segmented"><button data-mode="2.5d" class="selected">2.5D 空间</button><button data-mode="2d">2D 平面</button></div></div>
    <div class="field"><label>发射形状</label><select id="emitter"><option value="point">点发射</option><option value="circle">圆形发射</option><option value="line">线性发射</option><option value="cone">锥形发射</option><option value="sphere">球体发射</option></select></div>
-   <div class="field range"><label>发射区域 <output id="areaOut">120</output></label><input id="area" type="range" min="0" max="300" value="120"></div>
+   <div class="field range"><label>发射区域 <output id="areaOut">120</output></label><input id="area" type="range" min="0" max="1000" value="120"></div>
    <div class="field range"><label>发射方向 <output id="directionOut">0°</output></label><input id="direction" type="range" min="0" max="360" value="0"></div>
    <div class="field range"><label>扩散角度 <output id="spreadOut">70°</output></label><input id="spread" type="range" min="0" max="360" value="70"></div>
   </section>
@@ -52,7 +52,7 @@
   <div class="workspace-head"><div><h2>实时预览</h2><p>画布 960 × 600 · 透明网格背景</p></div><div class="play-actions"><button id="playBtn" class="btn dark">Ⅱ 暂停</button><button id="restartBtn" class="btn dark">↻ 重播</button><button id="loopBtn" class="btn dark" aria-pressed="false">↻ Loop 关闭</button></div></div>
   <div class="preview-wrap"><canvas id="preview" width="960" height="600"></canvas><div class="preview-label">LIVE PREVIEW</div><div class="preview-corner">960 × 600</div></div>
   <div class="preview-toolbar"><div class="stats"><div><small>当前粒子</small><b id="particleCount">0</b></div><div><small>渲染模式</small><b id="modeText">2.5D</b></div><div><small>帧率</small><b id="fpsText">—</b></div></div><div class="quick-actions"><button id="clearBtn" class="btn ghost">清空粒子</button><button id="burstBtn" class="btn accent">✦ 触发爆发</button></div></div>
-  <section class="preset-section"><div class="section-heading"><div><h2>特效预设</h2><p>选择一个效果作为创作起点</p></div><span>12 个预设</span></div><div class="presets">
+  <section class="preset-section"><div class="section-heading"><div><h2>特效预设</h2><p>选择一个效果作为创作起点</p></div><span>18 个预设</span></div><div class="presets">
    <button class="preset" data-preset="gold"><span class="preset-art gold-art">✦</span><b>金币爆发</b><small>向外扩散 · 重力下落</small></button>
    <button class="preset" data-preset="stars"><span class="preset-art star-art">✧</span><b>星光漂浮</b><small>缓慢上升 · 随机闪烁</small></button>
    <button class="preset" data-preset="vortex"><span class="preset-art vortex-art">◉</span><b>能量漩涡</b><small>环绕旋转 · 空间运动</small></button>
@@ -65,6 +65,12 @@
    <button class="preset" data-preset="fountain"><span class="preset-art fountain-art">♨</span><b>粒子喷射</b><small>向上喷发 · 重力回落</small></button>
    <button class="preset" data-preset="orbit"><span class="preset-art orbit-art">◎</span><b>粒子环绕</b><small>中心环绕 · 轨道运动</small></button>
    <button class="preset" data-preset="disperse"><span class="preset-art disperse-art">✺</span><b>粒子扩散</b><small>缓慢扩张 · 均匀散开</small></button>
+   <button class="preset" data-preset="spatialDrift"><span class="preset-art energy-art">·</span><b>空间随机漂浮</b><small>全画面分布 · 无规则缓慢漂移</small></button>
+   <button class="preset" data-preset="centerBurst"><span class="preset-art explosion-art">✹</span><b>中心爆发扩散</b><small>中心聚集 · 径向瞬间扩散</small></button>
+   <button class="preset" data-preset="slowRise"><span class="preset-art rise-art">↑</span><b>缓慢向上漂浮</b><small>底部发射 · 缓慢上升</small></button>
+   <button class="preset" data-preset="petalFall"><span class="preset-art fall-art">↓</span><b>花瓣自由飘落</b><small>向下飘落 · 横向摇摆</small></button>
+   <button class="preset" data-preset="starCluster"><span class="preset-art star-art">✧</span><b>星点聚集游动</b><small>中心聚集 · 小范围游动</small></button>
+   <button class="preset" data-preset="heartFloat"><span class="preset-art heart-art">↑</span><b>爱心缓慢漂浮</b><small>集中缓升 · 轻微偏移</small></button>
   </div></section>
   <section class="export-section"><div class="section-heading"><div><h2>导出动画</h2><p>设置画布规格和动画参数</p></div><span>LOCAL EXPORT</span></div>
    <div class="export-grid"><div class="field"><label>画布宽度</label><input id="exportW" type="number" min="64" max="3840" value="960"></div><div class="field"><label>画布高度</label><input id="exportH" type="number" min="64" max="3840" value="600"></div><div class="field"><label>帧率</label><select id="fps"><option>24</option><option selected>30</option><option>60</option></select></div><div class="field"><label>动画时长</label><select id="duration"><option value="3">3 秒</option><option value="5" selected>5 秒</option><option value="8">8 秒</option><option value="10">10 秒</option></select></div></div>
